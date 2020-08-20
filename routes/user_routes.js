@@ -75,7 +75,7 @@ router.post('/contact', (req, res)=>{
     //check if user exits later
 
 //hash password
-let newUser = new User({
+let newUser = new Contact({
     name:req.body.name,
     email: req.body.email,
     subject: req.body.subject,
@@ -93,7 +93,7 @@ newUser.save((err,user) => {
 
 //API to get all users
 router.get('/allcontact', (req, res)=>{
-    User.find({}, (err, user)=>{
+    Contact.find({}, (err, user)=>{
         if(err && !user){
             res.status(401).json({ message:err });
         }
