@@ -37,9 +37,8 @@ router.get('/all', (req, res)=>{
 })
 
 //API to get user by ID
-router.get('/:id', (req, res) => {
-    User.findOne({
-        mobile: req.params.id
+router.get('/', (req, res) => {
+    Contact.find({
     }, (err, user)=>{
         if(err && !user){
             res.status(401).json({ message:err });
@@ -75,14 +74,14 @@ router.post('/contact', (req, res)=>{
     //check if user exits later
 
 //hash password
-let newUser = new Contact({
+let newUserC = new Contact({
     name:req.body.name,
     email: req.body.email,
     subject: req.body.subject,
     message: req.body.message
 })
 //save User
-newUser.save((err,user) => {
+newUserC.save((err,user) => {
     // user.hash = undefined;
     if(err && !user){
         res.status(401).json({ message:err });
@@ -92,8 +91,9 @@ newUser.save((err,user) => {
 })
 
 //API to get all users
-router.get('/allcontact', (req, res)=>{
-    Contact.find({}, (err, user)=>{
+router.get('/allcontact', (req, res) => {
+    Contact.find({
+    }, (err, user)=>{
         if(err && !user){
             res.status(401).json({ message:err });
         }
