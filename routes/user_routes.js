@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
-// const JWT = require('jsonwebtoken')
 const User = require('../models/user')
 
 //API to Signup User
