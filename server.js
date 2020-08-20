@@ -50,5 +50,5 @@ require('./routes/routes')(app);
 
 //global error handlers
 // app.use(errorHandler)
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+app.listen(port, () => console.log(`Example app at ${port}`))
 
