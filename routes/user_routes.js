@@ -21,15 +21,17 @@ newUser.save((err,user) => {
     if(err){
         res.status(401).json({ message:err });
     }
-   else{ res.send(user)}
+   else{ res.status(200).json({ user })}
 })
 })
 
 //API to get all users
 router.get('/all', (req, res)=>{
     User.find({}, (err, user)=>{
-        if(err){console.log(err)}
-        else{res.send(user)}
+        if(err){
+            res.status(401).json({ message:err });
+        }
+       else{ res.status(200).json({ user })}
     })
 })
 
@@ -38,8 +40,10 @@ router.get('/:id', (req, res) => {
     User.findOne({
         mobile: req.params.id
     }, (err, user)=>{
-        if(err){console.log(err)}
-        else{res.send(user)}
+        if(err){
+            res.status(401).json({ message:err });
+        }
+       else{ res.status(200).json({ user })}
     })
 })
 
