@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user')
+const Contact = require('../models/contact')
+
 
 //API to Signup User
 router.post('/apply', (req, res)=>{
@@ -14,7 +16,6 @@ let newUser = new User({
     amountReq: req.body.amountReq,
     reqFor: req.body.reqFor,
 })
-console.log(newUser)
 //save User
 newUser.save((err,user) => {
     // user.hash = undefined;
@@ -67,6 +68,39 @@ router.put('/:id', (req,res)=>{
         }
     })
 })
+
+
+
+router.post('/contact', (req, res)=>{
+    //check if user exits later
+
+//hash password
+let newUser = new User({
+    name:req.body.name,
+    email: req.body.email,
+    subject: req.body.subject,
+    message: req.body.message
+})
+//save User
+newUser.save((err,user) => {
+    // user.hash = undefined;
+    if(err && !user){
+        res.status(401).json({ message:err });
+    }
+   else{ res.status(200).json({ status: 'SUCCESS', data: user })}
+})
+})
+
+//API to get all users
+router.get('/allcontact', (req, res)=>{
+    User.find({}, (err, user)=>{
+        if(err && !user){
+            res.status(401).json({ message:err });
+        }
+       else{ res.status(200).json({ status: 'SUCCESS', data: user })}
+    })
+})
+
 
 
 module.exports = router
