@@ -18,20 +18,20 @@ console.log(newUser)
 //save User
 newUser.save((err,user) => {
     // user.hash = undefined;
-    if(err){
+    if(err && !user){
         res.status(401).json({ message:err });
     }
-   else{ res.status(200).json({ user })}
+   else{ res.status(200).json({ status: 'SUCCESS', data: user })}
 })
 })
 
 //API to get all users
 router.get('/all', (req, res)=>{
     User.find({}, (err, user)=>{
-        if(err){
+        if(err && !user){
             res.status(401).json({ message:err });
         }
-       else{ res.status(200).json({ user })}
+       else{ res.status(200).json({ status: 'SUCCESS', data: user })}
     })
 })
 
@@ -40,18 +40,20 @@ router.get('/:id', (req, res) => {
     User.findOne({
         mobile: req.params.id
     }, (err, user)=>{
-        if(err){
+        if(err && !user){
             res.status(401).json({ message:err });
         }
-       else{ res.status(200).json({ user })}
+       else{ res.status(200).json({ status: 'SUCCESS', data: user })}
     })
 })
 
 //API to delete single user
 router.delete('/:id', (req,res)=>{
     User.findByIdAndDelete(req.params.id, (err, result)=>{
-        if(err){console.log(err)} // error handlers
-        else{res.send("User Deleted")}
+        if(err && !user){
+            res.status(401).json({ message:err });
+        }
+       else{ res.status(200).json({ status: 'SUCCESS', data: user })}
     })
 })
 
