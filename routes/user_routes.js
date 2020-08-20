@@ -36,9 +36,21 @@ router.get('/all', (req, res)=>{
     })
 })
 
-//API to get user by ID
-router.get('/', (req, res) => {
+router.get('/allcontact', (req, res) => {
     Contact.find({
+}, (err, user)=>{
+        if(err && !user){
+            res.status(401).json({ message:err });
+        }
+       else{ res.status(200).json({ status: 'SUCCESS', data: user })}
+    })
+})
+
+
+//API to get user by ID
+router.get('/:id', (req, res) => {
+    User.findOne({
+        mobile: req.params.id
     }, (err, user)=>{
         if(err && !user){
             res.status(401).json({ message:err });
@@ -91,16 +103,6 @@ newUserC.save((err,user) => {
 })
 
 //API to get all users
-router.get('/allcontact', (req, res) => {
-    Contact.find({
-    }, (err, user)=>{
-        if(err && !user){
-            res.status(401).json({ message:err });
-        }
-       else{ res.status(200).json({ status: 'SUCCESS', data: user })}
-    })
-})
-
 
 
 module.exports = router
